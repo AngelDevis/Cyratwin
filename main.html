@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyraTwin | Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-page">
+
+<h1 class="brand-title">CyraTwin</h1>
+
+<div class="login-container">
+
+    <div class="image-section">
+        <img src="images/menstrual.jpg" alt="Menstrual Cycle">
+    </div>
+
+    <div class="form-section">
+        <h2>Login</h2>
+
+        <!-- Added IDs to inputs so JavaScript can find them -->
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+
+        <!-- Added onclick event -->
+        <button class="login-btn" onclick="loginUser()">Login</button>
+
+        <p class="register-text">
+            <!-- Added onclick to redirect to register page -->
+            New user? <span onclick="window.location.href='register.html'" style="cursor:pointer; color: #ff4081; font-weight:bold;">Register</span>
+        </p>
+    </div>
+
+</div>
+
+<div class="footer-bar">
+    Because every woman deserves a healthy and balanced cycle journey.
+</div>
+
+<!-- JavaScript for Login Logic -->
+<script>
+function loginUser() {
+
+    var email = document.getElementById('loginEmail').value;
+    var password = document.getElementById('loginPassword').value;
+
+    var storedData = localStorage.getItem('userDatabase');
+
+    if (storedData) {
+        var user = JSON.parse(storedData);
+
+        if (email === user.email && password === user.password) {
+            alert("Login Successful! Welcome " + user.name);
+
+            // 🔥 GO TO HOME PAGE
+            window.location.href = 'home.html';
+
+        } else {
+            alert("Incorrect Email or Password!");
+        }
+
+    } else {
+        alert("No user registered. Please register first!");
+    }
+}
+</script>
+
+</body>
+</html>
