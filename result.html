@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYRATWIN | Health Report</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="result-page">
+
+<header class="navbar">
+    <div class="logo">❤️ CYRATWIN</div>
+
+    <nav class="nav-links">
+        <a href="home.html">HOME</a>
+        <a href="next.html">HEALTH ASSESSMENT</a>
+        <a href="tracker.html">PERIODS TRACKER</a>
+        <a href="#" class="logout-btn">SIGN OUT</a>
+    </nav>
+</header>
+
+<div class="result-container">
+
+    <!-- Risk Box -->
+    <div class="risk-box">
+        <h2 id="riskTitle">RISK</h2>
+        <p id="riskMsg"></p>
+        <p id="doctorMsg"></p>
+    </div>
+
+    <!-- Detailed Report -->
+    <div class="report-section">
+
+        <h3>Menstrual Cycle Analysis</h3>
+        <p id="analysisText"></p>
+
+        <h3>Recommended Diet</h3>
+        <ul id="dietList"></ul>
+
+        <h3>When to Consult a Doctor</h3>
+        <ul id="doctorList"></ul>
+
+    </div>
+
+</div>
+
+<footer class="footer-bar">
+💖 Because every woman deserves a safe, healthy, and balanced cycle journey.
+</footer>
+
+<script>
+
+const risk = localStorage.getItem("riskLevel");
+const avgPain = localStorage.getItem("avgPain");
+
+document.getElementById("riskTitle").innerText = risk + " RISK";
+
+/* ================= LOW RISK ================= */
+if(risk === "LOW"){
+
+document.getElementById("riskMsg").innerText =
+"Your cycle symptoms are normal. Avg Pain Level: " + avgPain;
+
+document.getElementById("doctorMsg").innerText =
+"✅ No immediate doctor consultation required.";
+
+document.getElementById("analysisText").innerText =
+"Mild hormonal fluctuations detected. Regular menstrual pattern.";
+
+document.getElementById("dietList").innerHTML = `
+<li>🥬 Iron rich foods (Spinach, Beetroot)</li>
+<li>🍎 Fruits & hydration</li>
+<li>🥛 Warm milk</li>
+<li>🧘 Light stretching & yoga</li>`;
+
+document.getElementById("doctorList").innerHTML = `
+<li>Consult doctor only if pain suddenly increases</li>`;
+
+/* ================= MEDIUM RISK ================= */
+}else if(risk === "MEDIUM"){
+
+document.getElementById("riskMsg").innerText =
+"Moderate cramps detected. Avg Pain Level: " + avgPain;
+
+document.getElementById("doctorMsg").innerText =
+"⚠ Monitor next 2 cycles carefully.";
+
+document.getElementById("analysisText").innerText =
+"Possible PMS or mild dysmenorrhea symptoms.";
+
+document.getElementById("dietList").innerHTML = `
+<li>🥜 Magnesium foods (Almonds)</li>
+<li>🍵 Ginger tea</li>
+<li>🥗 Anti-inflammatory diet</li>
+<li>🚶 Light walking recommended</li>`;
+
+document.getElementById("doctorList").innerHTML = `
+<li>If persists more than 3 cycles consult gynecologist</li>`;
+
+/* ================= HIGH RISK ================= */
+}else{
+
+document.getElementById("riskMsg").innerText =
+"Severe pain detected. Avg Pain Level: " + avgPain;
+
+document.getElementById("doctorMsg").innerText =
+"🚨 Doctor consultation strongly recommended.";
+
+document.getElementById("analysisText").innerText =
+"Possible endometriosis or hormonal imbalance indicators.";
+
+document.getElementById("dietList").innerHTML = `
+<li>🐟 Omega-3 foods</li>
+<li>🥦 Anti-inflammatory diet</li>
+<li>🚫 Avoid caffeine</li>
+<li>💊 Iron supplementation (after doctor advice)</li>`;
+
+document.getElementById("doctorList").innerHTML = `
+<li>Consult gynecologist immediately</li>
+<li>Ultrasound recommended</li>
+<li>Track next cycles carefully</li>`;
+}
+
+</script>
+
+</body>
+</html>

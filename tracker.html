@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyraTwin | Period Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="tracker-page">
+
+<!-- NAVBAR -->
+<header class="topbar">
+    <div class="brand-name">💗 CYRATWIN</div>
+
+    <nav class="top-links">
+        <a href="home.html">HOME</a>
+        <a href="next.html">HEALTH ASSESSMENT</a>
+        <a href="tracker.html">PERIODS TRACKER</a>
+        <a href="#" class="signout-btn">SIGN OUT</a>
+    </nav>
+</header>
+
+<div class="tracker-container">
+
+    <!-- ADD RECORD BUTTON -->
+    <button class="add-record-btn" onclick="openForm()">+ Add Daily Record</button>
+
+    <h2>Weekly Period Health Tracking</h2>
+
+    <!-- TABLE -->
+    <table class="tracker-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Cycle Day</th>
+                <th>Pain Level</th>
+                <th>Flow Type</th>
+                <th>Mood</th>
+                <th>PMS Symptoms</th>
+                <th>Notes</th>
+                <th>Assessment</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <!-- GRAPH -->
+    <div class="chart-placeholder">
+        <canvas id="periodChart"></canvas>
+    </div>
+
+<button class="report-btn" onclick="goReport()">Generate Health Report</button>
+</div>
+
+<!-- POPUP FORM -->
+<div id="recordModal" class="modal">
+  <div class="modal-content">
+    <h3>Add Daily Cycle Record</h3>
+
+    <input type="date" id="date">
+    <input type="number" id="day" placeholder="Cycle Day (1-28)">
+    <input type="number" id="pain" placeholder="Pain Level (0-10)">
+    <input type="text" id="flow" placeholder="Flow Type">
+    <input type="text" id="mood" placeholder="Mood">
+    <input type="text" id="pms" placeholder="PMS Symptoms">
+    <input type="text" id="notes" placeholder="Notes">
+
+    <button onclick="addEntry()">Save</button>
+    <button onclick="closeForm()">Cancel</button>
+  </div>
+</div>
+
+<div class="bottom-bar">
+🌸 Because every woman deserves a safe and balanced cycle journey.
+</div>
+
+<script>
+
+let labels=[];
+let painData=[];
+
+// create chart
+const ctx=document.getElementById('periodChart').getContext('2d');
+const chart=new Chart(ctx,{
+type:'line',
+data:{labels:labels,datasets:[{
+label:'Pain Level',
+data:painData,
+borderColor:'#c4003a',
+backgroundColor:'rgba(196,0,58,0.2)',
+fill:true,
+tension:0.4
+}]},
+options:{responsive:true,scales:{y:{beginAtZero:true,max:10}}}
+});
+
+function openForm(){
+document.getElementById("recordModal").style.display="flex";
+}
+
+function closeForm(){
+document.getElementById("recordModal").style.display="none";
+}
+
+function addEntry(){
+
+const date=document.getElementById("date").value;
+const day=document.getElementById("day").value;
+const pain=document.getElementById("pain").value;
+const flow=document.getElementById("flow").value;
+const mood=document.getElementById("mood").value;
+const pms=document.getElementById("pms").value;
+const notes=document.getElementById("notes").value;
+
+if(day==""||pain==""){alert("Fill required fields");return;}
+
+document.getElementById("tableBody").innerHTML+=`
+<tr>
+<td>${date}</td>
+<td>${day}</td>
+<td>${pain}</td>
+<td>${flow}</td>
+<td>${mood}</td>
+<td>${pms}</td>
+<td>${notes}</td>
+<td>Recorded</td>
+</tr>`;
+
+labels.push("Day "+day);
+painData.push(Number(pain));
+chart.update();
+
+closeForm();
+}
+
+function goReport(){
+
+    if(painData.length == 0){
+        alert("Please add at least one record first");
+        return;
+    }
+
+    // calculate average pain
+    let sum = 0;
+    for(let i=0;i<painData.length;i++){
+        sum += painData[i];
+    }
+
+    let avgPain = sum / painData.length;
+
+    let riskLevel;
+
+    if(avgPain <= 3)
+        riskLevel = "LOW";
+    else if(avgPain <= 6)
+        riskLevel = "MEDIUM";
+    else
+        riskLevel = "HIGH";
+
+    // store result for next page
+    localStorage.setItem("riskLevel", riskLevel);
+    localStorage.setItem("avgPain", avgPain.toFixed(1));
+
+    window.location.href = "result.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyraTwin | Health Assessment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="assessment-page">
+
+<!-- NAVBAR -->
+<header class="topbar">
+
+    <div class="brand-name">
+        💗 CYRATWIN
+    </div>
+
+    <nav class="top-links">
+        <a href="home.html">HOME</a>
+        <a href="next.html">HEALTH ASSESSMENT</a>
+       <a href="tracker.html">PERIODS TRACKER</a>
+        <a href="#" class="signout-btn">SIGN OUT</a>
+    </nav>
+
+</header>
+
+<!-- MAIN SECTION -->
+<div class="assessment-container">
+
+    <!-- LEFT BIG CARD -->
+    <div class="survey-card">
+        <h2>Menstrual Health Survey</h2>
+
+        <input type="number" placeholder="Age">
+        <input type="text" placeholder="Last Period Date">
+        <input type="number" placeholder="Average Cycle Length (days)">
+        <input type="number" placeholder="Period Duration (days)">
+        <input type="text" placeholder="Pain Level (Low / Moderate / Severe)">
+        <input type="text" placeholder="Flow Type (Light / Normal / Heavy)">
+        <input type="text" placeholder="Irregular Cycles? (Yes / No)">
+        <input type="text" placeholder="Do you experience PMS?">
+
+        <button class="assess-btn" onclick="goToTracker()">Assess Health</button>    </div>
+
+    <div class="or-text">OR</div>
+
+    <!-- RIGHT SMALL CARD -->
+    <div class="upload-card">
+        <h3>Upload Medical Report</h3>
+        <input type="file">
+        <p>PDF / JPG / PNG supported</p>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="bottom-bar">
+    🌸 Because every woman deserves a safe and balanced cycle journey.
+</div>
+
+<script>
+function goToTracker(){
+    window.location.href = "tracker.html";
+}
+</script>
+
+</body>
+</html>

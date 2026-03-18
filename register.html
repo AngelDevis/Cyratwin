@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyraTwin | Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-page">
+
+<h1 class="brand-title">CyraTwin</h1>
+
+<div class="login-container">
+
+    <div class="image-section">
+        <img src="images/menstrual.jpg" alt="Menstrual Cycle">
+    </div>
+
+    <div class="form-section">
+        <h2>Register</h2>
+
+        <!-- Inputs for Registration -->
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+
+        <button class="login-btn" onclick="registerUser()">Sign Up</button>
+
+        <p class="register-text">
+            Already have an account? <span onclick="window.location.href='main.html'" style="cursor:pointer; color: #ff4081; font-weight:bold;">Login</span>
+        </p>
+    </div>
+
+</div>
+
+<div class="footer-bar">
+    Because every woman deserves a healthy and balanced cycle journey.
+</div>
+
+<!-- JavaScript for Database Logic -->
+<script>
+    function registerUser() {
+        // 1. Get values from inputs
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        // 2. Validation
+        if(name === "" || email === "" || password === "") {
+            alert("Please fill in all fields!");
+            return;
+        }
+
+        // 3. Save to "Database" (Local Storage)
+        // We create an object to store the user details
+        var userData = {
+            name: name,
+            email: email,
+            password: password
+        };
+
+        // Save the object as a string under the key 'userDatabase'
+        localStorage.setItem('userDatabase', JSON.stringify(userData));
+
+        alert("Registration Successful! Please Login.");
+        // 4. Redirect to Login Page
+        window.location.href = 'main.html';
+    }
+</script>
+
+</body>
+</html>
